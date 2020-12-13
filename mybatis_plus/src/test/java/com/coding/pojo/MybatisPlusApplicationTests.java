@@ -1,11 +1,17 @@
 package com.coding.pojo;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.coding.mapper.UserMapper;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 class MybatisPlusApplicationTests {
@@ -112,5 +118,72 @@ class MybatisPlusApplicationTests {
         int i1 = userMapper.updateById(user1);
         System.out.println(i1);
         System.out.println(user1);
+    }
+
+    //查询
+    @Test
+    public void queryByIdTest(){
+        User user = userMapper.selectById(1L);
+        System.out.println(user);
+    }
+
+    //批量查询
+    @Test
+    public void selectBatchIdsTest(){
+        List<User> users = userMapper.selectBatchIds(Arrays.asList(1, 2, 3));
+        users.forEach(System.out::println);
+    }
+
+    //简单的条件查询,map,简单的动态sql
+    @Test
+    public void selectByMapTest(){
+        Map<String,Object> map =  new HashMap<>();
+        map.put("name","coding");
+        map.put("age",4);
+        List<User> users = userMapper.selectByMap(map);
+        users.forEach(System.out::println);
+    }
+
+    //分页插件
+    @Test
+    public void selectPageTest(){
+        Page<User> page = new Page<>(3,3);
+        //wapper：条件构造器，模糊查询，排序、多表查询，子查询
+        userMapper.selectPage(page,null);
+        page.getRecords().forEach(System.out::println);
+        System.out.println(page.getCurrent());//获取当前页编号
+        System.out.println(page.getPages());//获取页数
+        System.out.println(page.getSize());//获取当前页多少条
+        System.out.println(page.getTotal());//获取总条数
+        System.out.println(page.hasNext());//是否有上一页
+        System.out.println(page.hasPrevious());//是否有下一页
+    }
+
+    //分页插件2
+    @Test
+    public void selectMapsPagTest(){
+        Page<Map<String,Object>> page = new Page<>(3,3);
+        //wapper：条件构造器，模糊查询，排序、多表查询，子查询
+        Page<Map<String, Object>> e= userMapper.selectMapsPage(page,null);
+
+        e.getRecords().forEach(System.out::println);
+    }
+
+
+    //本来删除，物理删除，在数据库中被删除了
+    //逻辑删除：在数据库中还存在，但在查询中，查不到（本质，在查询中多一个判断）
+
+    //物理删除
+    @Test
+    public void deleteTest(){
+        int i = userMapper.deleteById(5L);
+        System.out.println(i);
+    }
+
+    //逻辑删除
+    @Test
+    public void logicDeleteTest(){
+        int i = userMapper.deleteById(1L);
+        System.out.println(i);
     }
 }

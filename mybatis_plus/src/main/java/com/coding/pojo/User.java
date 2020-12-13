@@ -31,4 +31,8 @@ public class User {
     //version范围：int,Integer,Long,long,Date,TimsStamp
     @Version //注解千万不要忘记 // 乐观锁添加注解
     private Integer version;
+
+    //逻辑删除字段
+    @TableLogic
+    private Integer deleted;
 }

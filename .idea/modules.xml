@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/mybatis_plus/mybatis_plus.iml" filepath="$PROJECT_DIR$/mybatis_plus/mybatis_plus.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/mybatisplus.iml" filepath="$PROJECT_DIR$/.idea/mybatisplus.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mybatisplus_autogeneration/mybatisplus_autogeneration.iml" filepath="$PROJECT_DIR$/mybatisplus_autogeneration/mybatisplus_autogeneration.iml" />
     </modules>
   </component>
 </project>
